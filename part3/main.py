@@ -12,7 +12,7 @@ chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_experimental_option("detach", True)
 
 driver = webdriver.Chrome(options=chrome_options)
-driver.get("https://www.amazon.com/Apple-2022-MacBook-512GB-Storage/dp/B0BB8SK52N/ref=psdc_565108_t1_B0BB8BHKB8?language=pt_BR&currency=EUR")
+driver.get("https://www.amazon.com/Apple-2022-MacBook-512GB-Storage/dp/B0BB8SK52N/ref=psdc_565108_t1_B0BB8BHKB8/")#?language=pt_BR&currency=EUR")
 driver.maximize_window()
 sleep(2)
 price_eur = driver.find_element(By.CLASS_NAME,"a-offscreen")
