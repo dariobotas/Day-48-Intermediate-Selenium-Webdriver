@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 import time
 
 # Optional - Keep the browser open (helps diagnose issues if the script crashes)
@@ -18,11 +19,13 @@ cookie = driver.find_element(by=By.ID, value= "cookie")
 items = driver.find_elements(By.CSS_SELECTOR, value="#store div")
 item_ids = [item.get_attribute("id") for item in items]
 
-timeout = time.time() + 5
-five_min = time.time() + 60*5 # 5 minutes = 60 seconds times 5
+timeout = time.time() + 30
+ten_min = time.time() + 60*5 # 5 minutes = 60 seconds times 5
+action = ActionChains(driver)
 
 while True:
-    cookie.click()
+    #cookie.click()
+    action.double_click(on_element=cookie)
 
     #every 5 seconds:
     if time.time() > timeout:
@@ -57,16 +60,16 @@ while True:
 
         # Purchase the most expensive affordable upgrade
         highest_price_affordable_upgrade = max(affordable_upgrades)
-        print(highest_price_affordable_upgrade)
+        print(f"The higest price affordable: {highest_price_affordable_upgrade}")
         to_purchase_id = affordable_upgrades[highest_price_affordable_upgrade]
 
         driver.find_element(By.ID, to_purchase_id).click()
 
         #Add another 5 seconds until the next check
-        timeout = time.time() + 5
+        timeout = time.time() + 15
 
     #After 5 minutes stop the bot and check the cookies per second count.
-    if time.time() > five_min:
+    if time.time() > ten_min:
         cookie_per_s = driver.find_element(By.ID, value="cps").text
-        print((cookie_per_s))
+        print(f"Cookies per second: {cookie_per_s}")
         break
